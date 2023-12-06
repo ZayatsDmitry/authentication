@@ -9,6 +9,8 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,9 +58,31 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
             ),
-            TextFormField(
-              keyboardType: TextInputType.emailAddress,
-
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+              ),
+              child: TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                obscureText: false,
+                controller: emailController,
+                style: const TextStyle(
+                  color: colorWhite,
+                  fontFamily: "Monsterrat",
+                ),
+                textAlign: TextAlign.center,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: colorWhite,
+                    size: 25,
+                  ),
+                  focusColor: colorWhite,
+                  hintText: "Please enter your email",
+                ),
+              ),
             ),
           ],
         ),
