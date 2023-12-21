@@ -136,9 +136,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   DateTime date = DateTime(1900);
                   FocusScope.of(context).requestFocus(FocusNode());
                   date = (await showDatePicker(
+                      context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(1900),
-                      lastDate: DateTime(2100)))!;
+                      lastDate: DateTime(2100), ))!;
                   String dateFormatter = date.toIso8601String();
                   DateTime dt = DateTime.parse(dateFormatter);
                   var formatter = DateFormat("dd-MMMM-yyyy");
@@ -261,7 +262,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         fontSize: 15),
                   ),
                 ),
-            ),
+            ]),
           ],
         ),
       ),
