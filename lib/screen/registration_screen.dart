@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_authentication_ui/add_utils.dart';
+import 'package:flutter_authentication_ui/screen/login_screen.dart';
 import 'package:flutter_authentication_ui/widget/input_field_widget.dart';
+import 'package:flutter_authentication_ui/widget/primary_button.dart';
 import 'package:intl/intl.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -16,9 +18,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
 
+  String genderSelected = "male";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: colorPrimary,
       body: SafeArea(
         child: Column(
@@ -29,7 +34,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 "Jack",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Montserrat",
+                  fontFamily: fontFamily,
                   fontSize: 28,
                   color: colorWhite,
                 ),
@@ -43,24 +48,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 "of all trades",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Montserrat",
+                  fontFamily: fontFamily,
                   fontSize: 28,
                   color: colorWhite,
                 ),
               ),
             ),
             SizedBox(
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height * 0.03,
+              height: MediaQuery.of(context).size.height * 0.03,
             ),
             const Center(
               child: Text(
                 "Please, enter your information",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Montserrat",
+                  fontFamily: fontFamily,
                   fontSize: 14,
                   color: colorWhite,
                 ),
@@ -102,7 +104,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: TextFormField(
                 style: const TextStyle(
                   color: colorWhite,
-                  fontFamily: "Montserrat",
+                  fontFamily: fontFamily,
                 ),
                 textAlign: TextAlign.center,
                 controller: birthDateController,
@@ -116,7 +118,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   hintStyle: TextStyle(
                     color: colorGrey,
                     fontSize: 12,
-                    fontFamily: "Montserrat",
+                    fontFamily: fontFamily,
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: colorWhite),
@@ -128,7 +130,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onTap: () async {
                   DateTime date = DateTime(1900);
                   FocusScope.of(context).requestFocus(FocusNode());
-                  date = (await showDatePicker(context: context,
+                  date = (await showDatePicker(
+                      context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(1900),
                       lastDate: DateTime(2100)))!;
@@ -139,9 +142,146 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 },
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "GENDER",
+                    style: TextStyle(
+                      color: colorWhite,
+                      letterSpacing: 1,
+                      fontSize: 14,
+                      fontFamily: fontFamily,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: RadioListTile(
+                          contentPadding: EdgeInsets.zero,
+                          groupValue: genderSelected,
+                          activeColor: colorWhite,
+                          title: const Text(
+                            "MALE",
+                            style: TextStyle(
+                              color: colorWhite,
+                              fontSize: 14,
+                              fontFamily: fontFamily,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          value: "male",
+                          onChanged: (val) {
+                            setState(() {
+                              genderSelected = val.toString();
+                            });
+                            print(genderSelected);
+                          },
+                        ),
+                      ),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: RadioListTile(
+                          contentPadding: EdgeInsets.zero,
+                          groupValue: genderSelected,
+                          activeColor: colorWhite,
+                          title: const Text(
+                            "FEMALE",
+                            style: TextStyle(
+                              color: colorWhite,
+                              fontSize: 14,
+                              fontFamily: fontFamily,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          value: "female",
+                          onChanged: (val) {
+                            setState(() {
+                              genderSelected = val.toString();
+                            });
+                            print(genderSelected);
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            PrimaryButton(
+              text: "Sign Up",
+              onPressed: () {
+                if (isValidate()) {
+                  print("Data validate");
+                }
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Already have an account!",
+                  style: TextStyle(
+                    color: colorWhite,
+                    fontFamily: fontFamily,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Sign In",
+                    style: TextStyle(
+                        color: colorWhite,
+                        fontFamily: fontFamily,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
+  }
+
+  bool isValidate() {
+    if (nameController.text.isEmpty) {
+      showScaffold(context, "Please, enter your name");
+      return false;
+    }
+    if (emailController.text.isEmpty) {
+      showScaffold(context, "Please, enter your email");
+      return false;
+    }
+    if (passwordController.text.isEmpty) {
+      showScaffold(context, "Please, enter your password");
+      return false;
+    }
+    if (birthDateController.text.isEmpty) {
+      showScaffold(context, "Please, enter your birthdate");
+      return false;
+    }
+    return true;
   }
 }
