@@ -3,6 +3,7 @@ import 'package:flutter_authentication_ui/add_utils.dart';
 import 'package:flutter_authentication_ui/screen/login_screen.dart';
 import 'package:flutter_authentication_ui/widget/input_field_widget.dart';
 import 'package:flutter_authentication_ui/widget/primary_button.dart';
+import 'package:flutter_authentication_ui/widget/input_field_widget.dart';
 import 'package:intl/intl.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
+
 
   String genderSelected = "male";
 
@@ -55,7 +57,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.03,
             ),
             const Center(
               child: Text(
@@ -131,7 +136,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   DateTime date = DateTime(1900);
                   FocusScope.of(context).requestFocus(FocusNode());
                   date = (await showDatePicker(
-                      context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(1900),
                       lastDate: DateTime(2100)))!;
@@ -257,7 +261,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         fontSize: 15),
                   ),
                 ),
-              ],
             ),
           ],
         ),
