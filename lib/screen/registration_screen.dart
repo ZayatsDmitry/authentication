@@ -3,7 +3,6 @@ import 'package:flutter_authentication_ui/add_utils.dart';
 import 'package:flutter_authentication_ui/screen/login_screen.dart';
 import 'package:flutter_authentication_ui/widget/input_field_widget.dart';
 import 'package:flutter_authentication_ui/widget/primary_button.dart';
-import 'package:flutter_authentication_ui/widget/input_field_widget.dart';
 import 'package:intl/intl.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -233,6 +232,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   print("Data validate");
                 }
               },
+            ),
+            const SizedBox(
+              height: 25,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
