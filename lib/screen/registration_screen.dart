@@ -189,7 +189,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             setState(() {
                               genderSelected = val.toString();
                             });
-                            print(genderSelected);
                           },
                         ),
                       ),
@@ -213,7 +212,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             setState(() {
                               genderSelected = val.toString();
                             });
-                            print(genderSelected);
                           },
                         ),
                       )

@@ -64,7 +64,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text(
                     "JOT",
                     style: TextStyle(
-                        color: colorWhite, fontFamily: fontFamily, fontSize: 25),
+                        color: colorWhite,
+                        fontFamily: fontFamily,
+                        fontSize: 25),
                   ),
                 ],
               ),
@@ -83,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
               ),
               const Text(
-                "Plese, enter your details below",
+                "Please, enter your details below",
                 style: TextStyle(
                   color: colorWhite,
                   fontFamily: fontFamily,
@@ -104,50 +106,64 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               InputField(
                 controller: passwordController,
-                hintText: "Enter your passwoed",
+                hintText: "Enter your password",
                 icon: Icons.password,
                 obscureText: true,
               ),
               const SizedBox(
                 height: 70,
               ),
-              PrimaryButton(text: "Sign In", onPressed: () {}),
+              PrimaryButton(
+                  text: "Sign In",
+                  onPressed: () {
+                    if (isValidate()) {}
+                  }),
               const SizedBox(
                 height: 25,
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Already have an account!",
-                      style: TextStyle(
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Text(
+                  "Already have an account!",
+                  style: TextStyle(
+                    color: colorWhite,
+                    fontFamily: fontFamily,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegistrationScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(
                         color: colorWhite,
                         fontFamily: fontFamily,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegistrationScreen(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(
-                            color: colorWhite,
-                            fontFamily: fontFamily,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
-                      ),
-                    ),
-                  ]),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
+                ),
+              ]),
             ],
           ),
         ),
       ),
     );
+  }
+
+  bool isValidate() {
+    if (emailController.text.isEmpty) {
+      showScaffold(context, "Please, enter your email");
+      return false;
+    }
+    if (passwordController.text.isEmpty) {
+      showScaffold(context, "Please, enter your password");
+      return false;
+    }
+    return true;
   }
 }
